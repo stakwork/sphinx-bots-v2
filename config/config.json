@@ -1,0 +1,18 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "/Users/Shared/sphinx_v2_bot.db"
+  },
+  "docker_development": {
+    "dialect": "sqlite",
+    "storage": "./sphinx_v2_bot.db"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "/home/ec2-user/sphinx_v2_bot.db"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "/home/ec2-user/sphinx_v2_bot.db"
+  }
+}

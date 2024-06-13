@@ -1,6 +1,7 @@
 import express from "express";
 import expressApp from "./loaders/express";
 import { config } from "./config";
+import { sequelize } from "./models";
 import logger from "./logger";
 
 async function startServer() {
@@ -12,11 +13,16 @@ async function startServer() {
   await expressApp({ app });
   app
     .listen(config.port, () => {
-      logger.info(`
+      sequelize
+        .sync()
+        .then(() => {
+          logger.info(`
       ################################################
       🛡️  Server listening on port: ${config.port} 🛡️
       ################################################
     `);
+        })
+        .catch(() => {});
     })
     .on("error", (err) => {
       logger.error(err);
