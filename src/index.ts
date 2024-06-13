@@ -3,6 +3,7 @@ import expressApp from "./loaders/express";
 import { config } from "./config";
 import { sequelize } from "./models";
 import logger from "./logger";
+import { initializeAllBots } from "./bots";
 
 async function startServer() {
   const app = express();
@@ -16,6 +17,7 @@ async function startServer() {
       sequelize
         .sync()
         .then(() => {
+          initializeAllBots();
           logger.info(`
       ################################################
       🛡️  Server listening on port: ${config.port} 🛡️
