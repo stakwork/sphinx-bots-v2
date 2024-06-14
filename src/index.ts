@@ -24,7 +24,10 @@ async function startServer() {
       ################################################
     `);
         })
-        .catch(() => {});
+        .catch((e) => {
+          logger.error(e);
+          process.exit(1);
+        });
     })
     .on("error", (err) => {
       logger.error(err);

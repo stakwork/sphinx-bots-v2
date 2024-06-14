@@ -3,7 +3,7 @@ import { Table, Column, Model, DataType } from "sequelize-typescript";
 @Table({
   tableName: "sphinx_chat_bots",
   underscored: true,
-  indexes: [{ unique: true, fields: ["tribe_pubkey", "bot_uuid"] }],
+  indexes: [{ unique: true, fields: ["chat_pubkey", "bot_uuid"] }],
 })
 export default class ChatBot extends Model<ChatBot> {
   @Column({
@@ -15,7 +15,7 @@ export default class ChatBot extends Model<ChatBot> {
   id!: number;
 
   @Column
-  tribePubkey!: number;
+  chatPubkey!: number;
 
   @Column
   botUuid!: string;

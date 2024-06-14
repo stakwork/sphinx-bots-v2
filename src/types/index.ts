@@ -82,3 +82,25 @@ export interface BotMsg extends Msg {
   recipient_id?: any;
   action?: string;
 }
+
+export type ActionType = "broadcast" | "pay" | "keysend" | "dm";
+
+export interface Action {
+  action: ActionType;
+  chat_uuid: string;
+  bot_id: string;
+  bot_name?: string;
+  amount?: number;
+  pubkey?: string;
+  content?: string;
+  msg_uuid?: string;
+  reply_uuid?: string;
+  route_hint?: string;
+  recipient_id?: number;
+  parent_id?: number;
+  bot_pic?: string;
+  only_owner?: boolean;
+  only_user?: number;
+  only_pubkey?: string;
+  recipient_pubkey?: string;
+}
