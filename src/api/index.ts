@@ -1,9 +1,10 @@
 import { Router } from "express";
+import recieveCommand from "./routes/recieveCommand";
 
 // guaranteed to get dependencies
 export default () => {
   const app = Router();
-  //   externalLiquidityStatus(app);
+  recieveCommand(app);
 
   return app;
 };

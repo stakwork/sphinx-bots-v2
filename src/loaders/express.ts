@@ -17,7 +17,7 @@ export default ({ app }: { app: express.Application }) => {
   app.use(express.json());
 
   // Load API routes
-  //   app.use("/api", routes());
+  app.use("/api", routes());
 
   /// catch 404 and forward to error handler
   app.use((req, res, next) => {

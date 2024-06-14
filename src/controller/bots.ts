@@ -4,14 +4,14 @@ import { BotMsg } from "../types";
 
 export function buildBotPayload(
   msg: BotMsg,
+  chat_pubkey: string,
   botPrefix?: string
 ): SphinxBot.Message {
-  const chat_uuid = msg.chat && msg.chat.uuid;
   const m = <SphinxBot.Message>{
     id: msg.message.uuid,
     reply_id: msg.message.replyUuid,
     channel: {
-      id: chat_uuid,
+      id: chat_pubkey,
       send: function () {},
       pay: function () {},
     },

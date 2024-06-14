@@ -71,7 +71,6 @@ export interface SenderContent {
 export interface Msg {
   type: number;
   message: MessageContent;
-  chat: ChatContent;
   sender: SenderContent;
   error_message?: string;
 }
