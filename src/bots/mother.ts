@@ -2,7 +2,6 @@ import * as Sphinx from "sphinx-bot";
 import { finalAction } from "../controller/finalBotAction";
 // import { installBotAsTribeAdmin } from "../controllers/bots";
 import { models } from "../models";
-import fetch from "node-fetch";
 import constants from "../constant";
 
 import logger from "../logger";
