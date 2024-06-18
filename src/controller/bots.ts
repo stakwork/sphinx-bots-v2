@@ -28,7 +28,7 @@ export function buildBotPayload(
     },
     author: { bot: botPrefix },
   };
-  if (msg.sender.role === constants.chat_roles.owner) {
+  if (msg.sender.role === constants.tribe_roles.owner) {
     if (m.member)
       m.member.roles = [
         {
