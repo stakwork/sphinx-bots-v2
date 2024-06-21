@@ -2,7 +2,6 @@ import * as Sphinx from "sphinx-bot";
 import { finalAction } from "../controller/finalBotAction";
 // import { installBotAsTribeAdmin } from "../controllers/bots";
 import { models } from "../models";
-import fetch from "node-fetch";
 import constants from "../constant";
 
 import logger from "../logger";
@@ -91,7 +90,6 @@ export function init() {
   client.login("_", finalAction);
 
   client.on(msg_types.MESSAGE, async (message: Sphinx.Message) => {
-    console.log("MOTHERBOT GOT A MESSAGE", message);
     const arr = (message.content && message.content.split(" ")) || [];
     if (arr.length < 2) return;
     if (arr[0] !== "/bot") return;
