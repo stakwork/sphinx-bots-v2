@@ -13,20 +13,10 @@ export default (app: Router) => {
     "/bot_command/:chat_pubkey",
     async (req: Request, res: Response) => {
       const chat_pubkey = req.params.chat_pubkey as string;
-      const { type, message } = req.body;
       if (!chat_pubkey)
         return failure(res, 400, "please provide valid chat pubkey");
       try {
-        let botPrefix = "";
-        if (type === constants.message_types.group_join) {
-          botPrefix = "/welcome";
-        } else {
-          if (message && message.content && message.content[0] === "/") {
-            const msgArr = message.content.split(" ");
-            botPrefix = msgArr[0];
-          }
-        }
-        builtinBotEmit(req.body, chat_pubkey, botPrefix);
+        builtinBotEmit(req.body, chat_pubkey);
         return success(res, 200, "bot message received successfully");
       } catch (error) {
         logger.error(JSON.stringify(error));

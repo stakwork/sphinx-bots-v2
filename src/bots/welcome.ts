@@ -21,7 +21,8 @@ export function init() {
   client.login("_", finalAction);
 
   client.on(msg_types.MESSAGE, async (message: Sphinx.Message) => {
-    if (message.author?.bot !== botPrefix) return;
+    const chatBot = await findBuiltInChatBot(message.channel.id, botPrefix);
+    if (!chatBot) return;
     const arr = (message.content && message.content.split(" ")) || [];
 
     const isGroupJoin = message.type === constants.message_types.group_join;
@@ -32,12 +33,6 @@ export function init() {
 
     if (isGroupJoin) {
       try {
-        const chatBot = await findBuiltInChatBot(
-          message.channel.id,
-          "/welcome"
-        );
-
-        if (!chatBot) return;
         let meta = "Welcome to the tribe!";
         if (chatBot && chatBot.meta) {
           meta = chatBot.meta;
