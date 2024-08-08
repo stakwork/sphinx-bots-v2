@@ -1,5 +1,4 @@
 export interface MessageContent {
-  uuid: string;
   content: string | { [k: string]: string };
   amount: number;
   id?: number;
@@ -70,6 +69,7 @@ export interface SenderContent {
 
 export interface Msg {
   type: number;
+  uuid: string;
   message: MessageContent;
   sender: SenderContent;
   error_message?: string;

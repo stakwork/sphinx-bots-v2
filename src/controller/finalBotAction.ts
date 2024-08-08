@@ -37,7 +37,8 @@ export async function finalAction(a: Action): Promise<void> {
     return;
   }
   try {
-    await axios.post(config.mixer_url, toPayload(a), {
+    const pld = toPayload(a);
+    await axios.post(config.mixer_url + "/" + pld.route, pld.body, {
       headers: { "x-admin-token": config.mixer_secret_key },
     });
     logger.info("Action sent to Mixer successfully");

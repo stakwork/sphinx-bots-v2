@@ -29,7 +29,7 @@ export default (app: Router) => {
         }
       }
       const botmsg = actionToBotMsg(action);
-      builtinBotEmit(botmsg, action.chat_uuid);
+      builtinBotEmit(botmsg);
       return success(res, 200, "bot message received successfully");
     } catch (error) {
       logger.error(JSON.stringify(error));
@@ -37,12 +37,10 @@ export default (app: Router) => {
     }
   });
 
-  route.post("/msg/:chat_pubkey", async (req: Request, res: Response) => {
-    const chat_pubkey = req.params.chat_pubkey as string;
-    if (!chat_pubkey)
-      return failure(res, 400, "please provide valid chat pubkey");
+  route.post("/msg", async (req: Request, res: Response) => {
     try {
-      builtinBotEmit(req.body as Msg, chat_pubkey);
+      console.log("=>", req.body);
+      builtinBotEmit(req.body as Msg);
       return success(res, 200, "bot message received successfully");
     } catch (error) {
       logger.error(JSON.stringify(error));
@@ -57,13 +55,13 @@ function actionToBotMsg(a: Action): BotMsg {
     bot_id: a.bot_id,
     bot_name: a.bot_name,
     type: constants.message_types.bot_res,
+    uuid: a.msg_uuid || "",
     message: {
       content: a.content || "",
       amount: a.amount || 0,
-      uuid: a.msg_uuid || "",
     },
     sender: {
-      pub_key: "",
+      pub_key: a.chat_uuid,
       alias: a.bot_name || "",
       role: constants.tribe_roles.reader,
       route_hint: a.route_hint,

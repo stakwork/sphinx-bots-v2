@@ -9,22 +9,18 @@ async function initializeAllBots() {
   WelcomeBot.init();
 }
 
-function builtinBotEmit(msg: BotMsg, chat_pubkey: string, botPrefix?: string) {
+function builtinBotEmit(msg: BotMsg, botPrefix?: string) {
   setTimeout(() => {
-    SphinxBot._emit("message", buildBotPayload(msg, chat_pubkey, botPrefix));
+    SphinxBot._emit("message", buildBotPayload(msg, botPrefix));
   }, 1200);
 }
 
-function buildBotPayload(
-  msg: BotMsg,
-  chat_pubkey: string,
-  botPrefix?: string
-): SphinxBot.Message {
+function buildBotPayload(msg: BotMsg, botPrefix?: string): SphinxBot.Message {
   const m = <SphinxBot.Message>{
-    id: msg.message.uuid,
+    id: msg.uuid,
     reply_id: msg.message.replyUuid,
     channel: {
-      id: chat_pubkey,
+      id: msg.sender.pub_key, // id of the chat is the tribe pubkey
       send: function () {},
       pay: function () {},
     },
