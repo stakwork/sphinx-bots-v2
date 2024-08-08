@@ -16,10 +16,6 @@ const builtinBots = [
     description: "Send automated messages when a user joins tribe",
   },
   {
-    name: "loopout",
-    description: "Sends money to a bitcoin address",
-  },
-  {
     name: "git",
     description: "Get repo notifications from GitHub",
   },
@@ -72,7 +68,6 @@ const builtInHiddenCmd: { [key: string]: string[] } = {
 
 const builtInBotNames: { [key: string]: string } = {
   welcome: "WelcomeBot",
-  loopout: "LoopBot",
   git: "GitBot",
   badge: "BadgeBot",
   callRecording: "CallRecordingBot",

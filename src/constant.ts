@@ -49,23 +49,17 @@ const constants = {
     incorrect_payment_details: "Incorrect Payment Details",
     unknown: "Unknown",
   },
-  chat_types: {
-    conversation: 0,
-    group: 1,
-    tribe: 2,
-  },
   bot_types: {
     builtin: 0,
     local: 1,
     remote: 2,
   },
-  chat_roles: {
-    "-": 0,
-    owner: 1,
-    admin: 2,
-    mod: 3,
-    writer: 4,
-    reader: 5,
+  tribe_roles: {
+    owner: 0,
+    admin: 1,
+    mod: 2,
+    writer: 3,
+    reader: 4,
   },
   action_types: {
     message: 0,
