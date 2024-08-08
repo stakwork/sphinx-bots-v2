@@ -89,6 +89,7 @@ export interface Action {
   action: ActionType;
   chat_uuid: string;
   bot_id: string;
+  bot_secret: string;
   bot_name?: string;
   amount?: number;
   pubkey?: string;
