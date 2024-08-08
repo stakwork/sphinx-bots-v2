@@ -12,7 +12,7 @@ export async function finalAction(a: Action): Promise<void> {
       await axios.post(
         config.mixer_url,
         { ...a },
-        { headers: { "x-secret": config.mixer_secret_key } }
+        { headers: { "x-admin-token": config.mixer_secret_key } }
       );
       logger.info("Action sent to Mixer successfully");
     } catch (error) {
