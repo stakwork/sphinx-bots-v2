@@ -20,7 +20,7 @@ function buildBotPayload(msg: BotMsg, botPrefix?: string): SphinxBot.Message {
     id: msg.uuid,
     reply_id: msg.message.replyUuid,
     channel: {
-      id: msg.sender.pub_key, // id of the chat is the tribe pubkey
+      id: msg.sender.pubkey, // id of the chat is the tribe pubkey
       send: function () {},
       pay: function () {},
     },
@@ -38,12 +38,11 @@ function buildBotPayload(msg: BotMsg, botPrefix?: string): SphinxBot.Message {
     author: { bot: botPrefix },
   };
   if (msg.sender.role === constants.tribe_roles.owner) {
-    if (m.member)
-      m.member.roles = [
-        {
-          name: "Admin",
-        },
-      ];
+    m.member.roles = [
+      {
+        name: "Admin",
+      },
+    ];
   }
   return m;
 }

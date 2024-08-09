@@ -6,6 +6,6 @@ export const config = {
   api: {
     prefix: "/api",
   },
-  mixer_secret_key: process.env.MIXER_SECRET_KEY,
+  mixer_admin_token: process.env.MIXER_ADMIN_TOKEN,
   mixer_url: process.env.MIXER_URL,
 };

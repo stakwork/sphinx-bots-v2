@@ -61,7 +61,7 @@ function actionToBotMsg(a: Action): BotMsg {
       amount: a.amount || 0,
     },
     sender: {
-      pub_key: a.chat_uuid,
+      pubkey: a.chat_uuid,
       alias: a.bot_name || "",
       role: constants.tribe_roles.reader,
       route_hint: a.route_hint,

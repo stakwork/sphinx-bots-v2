@@ -16,7 +16,7 @@ export async function findBuiltInChatBot(
       },
     })) as ChatBotRecord;
   } catch (error) {
-    logger.error(`Error finding BuiltInChatBot: ${JSON.stringify(error)}`);
+    logger.warn(`Error finding BuiltInChatBot: ${JSON.stringify(error)}`);
     return null;
   }
 }

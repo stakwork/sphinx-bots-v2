@@ -58,7 +58,7 @@ export interface ChatContent {
 
 export interface SenderContent {
   id?: number;
-  pub_key: string;
+  pubkey: string;
   alias: string;
   role: number;
   route_hint?: string;
