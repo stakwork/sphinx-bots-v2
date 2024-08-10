@@ -1,15 +1,13 @@
-import { Sequelize } from "sequelize-typescript";
-import * as path from "path";
-import { readFileSync } from "fs";
+import { Sequelize, type SequelizeOptions } from "sequelize-typescript";
+import type { Dialect } from "sequelize";
 import Bot, { BotRecord } from "./sql/bot";
 import ChatBot, { ChatBotRecord } from "./sql/chatBot";
 
-const configFile = path.join(__dirname, "../../config/config.json");
-const env = process.env.NODE_ENV || "development";
-const config = JSON.parse(readFileSync(configFile).toString())[env];
+const dialect: Dialect = "sqlite";
 
-const opts = {
-  ...config,
+const opts: SequelizeOptions = {
+  dialect,
+  storage: process.env.DB_PATH || "/Users/Shared/sphinx_v2_bot.db",
   models: [Bot, ChatBot],
 };
 
