@@ -60,6 +60,7 @@ const constants = {
     mod: 2,
     writer: 3,
     reader: 4,
+    bot: 5,
   },
   action_types: {
     message: 0,

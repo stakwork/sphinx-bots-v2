@@ -5,6 +5,8 @@ import { builtinBotEmit } from "../../bots";
 import { Action, Msg, BotMsg } from "../../types";
 import constants from "../../constant";
 import { models, BotRecord } from "../../models";
+import axios from "axios";
+import { config } from "../../config";
 
 const route = Router();
 
@@ -44,7 +46,7 @@ export default (app: Router) => {
       return failure(res, 401, "wrong msg token");
     }
     try {
-      console.log("=>", req.body);
+      // console.log("=>", req.body);
       builtinBotEmit(req.body as Msg);
       return success(res, 200, "bot message received successfully");
     } catch (error) {
@@ -52,7 +54,33 @@ export default (app: Router) => {
       return failure(res, 500, error);
     }
   });
+
+  route.get("/bot_pubkey", async (req: Request, res: Response) => {
+    const msg_token = req.headers["x-msg-token"];
+    if (!msg_token) return failure(res, 401, "no msg token");
+    if (msg_token !== process.env.MSG_TOKEN) {
+      return failure(res, 401, "wrong msg token");
+    }
+    try {
+      const botres = await axios.get(config.bot_url + "/account", {
+        headers: { "x-admin-token": config.bot_admin_token },
+      });
+      const data: AccountRes = botres.data;
+      const pubkey = data.contact_info.split("_")[0];
+      return res.status(200).json({ pubkey });
+    } catch (error) {
+      logger.error(JSON.stringify(error));
+      return failure(res, 500, error);
+    }
+  });
 };
+
+export interface AccountRes {
+  contact_info: string;
+  alias: string;
+  img: string;
+  network: string;
+}
 
 function actionToBotMsg(a: Action): BotMsg {
   const data: BotMsg = {

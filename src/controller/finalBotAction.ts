@@ -32,16 +32,16 @@ function toPayload(a: Action): Payload {
 }
 
 export async function finalAction(a: Action): Promise<void> {
-  logger.info(`Send message to mixer: ${JSON.stringify(a)}`);
+  logger.info(`Send message to bot: ${JSON.stringify(a)}`);
 
-  if (!config.mixer_url) {
-    logger.error("MIXER_URL is not set in environment variable");
+  if (!config.bot_url) {
+    logger.error("BOT_URL is not set in environment variable");
     return;
   }
   try {
     const pld = toPayload(a);
-    await axios.post(config.mixer_url + "/" + pld.route, pld.body, {
-      headers: { "x-admin-token": config.mixer_admin_token },
+    await axios.post(config.bot_url + "/" + pld.route, pld.body, {
+      headers: { "x-admin-token": config.bot_admin_token },
     });
     logger.info("Action sent to Mixer successfully");
   } catch (error) {
