@@ -1964,10 +1964,10 @@ source-map@~0.6.1:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
-sphinx-bot@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/sphinx-bot/-/sphinx-bot-0.3.1.tgz#123935487a51cff5710b2c771b251290d5766a1b"
-  integrity sha512-QMHczGPZvnmWACsJNqHjeEMp4O+vdVQoyOwFDohZeXTV53oYR3rNOMZPgf/jNn4Wz88nCV8+J1eMj4RsDIfbGQ==
+sphinx-bot@0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/sphinx-bot/-/sphinx-bot-0.3.2.tgz#eae93ea063e613770f293177face3fa0b3b73fdd"
+  integrity sha512-+x/JKdcxB+DcGQUbcRn7KBNdEw4SqnpQtKpgwkLExb12PgV3Am1jbsH0cm6roe8S97dglKxzruh0iKDr6w0kdQ==
   dependencies:
     "@types/cors" "^2.8.7"
     "@types/express" "^4.17.8"

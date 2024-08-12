@@ -9,6 +9,7 @@ interface BroadcastBody {
   content?: string;
   is_tribe?: boolean;
   reply_uuid?: string;
+  msg_type?: number;
 }
 
 interface Payload {
@@ -25,6 +26,7 @@ function toPayload(a: Action): Payload {
       is_tribe: true,
       content: a.content,
       reply_uuid: a.reply_uuid,
+      msg_type: 25, // bot_res
     },
   };
 }

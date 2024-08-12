@@ -38,6 +38,11 @@ export default (app: Router) => {
   });
 
   route.post("/msg", async (req: Request, res: Response) => {
+    const msg_token = req.headers["x-msg-token"];
+    if (!msg_token) return failure(res, 401, "no msg token");
+    if (msg_token !== process.env.MSG_TOKEN) {
+      return failure(res, 401, "wrong msg token");
+    }
     try {
       console.log("=>", req.body);
       builtinBotEmit(req.body as Msg);
