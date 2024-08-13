@@ -15,7 +15,7 @@ export default class ChatBot extends Model<ChatBot> {
   id!: number;
 
   @Column
-  chatPubkey!: number;
+  chatPubkey!: string;
 
   @Column
   botId!: string;
