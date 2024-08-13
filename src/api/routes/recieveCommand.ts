@@ -1,12 +1,13 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response } from "express";
 import { success, failure } from "../../utils/response";
 import logger from "../../logger";
 import { builtinBotEmit } from "../../bots";
 import { Action, Msg, BotMsg } from "../../types";
 import constants from "../../constant";
-import { models, BotRecord } from "../../models";
+import { models, BotRecord, ChatBotRecord } from "../../models";
 import axios from "axios";
 import { config } from "../../config";
+import { finalAction } from "../../controller/finalBotAction";
 
 const route = Router();
 
@@ -30,9 +31,13 @@ export default (app: Router) => {
           return failure(res, 401, "wrong secret");
         }
       }
-      const botmsg = actionToBotMsg(action);
-      builtinBotEmit(botmsg);
-      return success(res, 200, "bot message received successfully");
+      const chatBot: ChatBotRecord = (await models.ChatBot.findOne({
+        where: { botId: action.bot_id, chatPubkey: action.chat_pubkey },
+      })) as ChatBotRecord;
+      if (!chatBot) return failure(res, 404, "bot not installed");
+
+      finalAction(action);
+      return success(res, 200, "bot action received successfully");
     } catch (error) {
       logger.error(JSON.stringify(error));
       return failure(res, 500, error);
@@ -80,34 +85,4 @@ export interface AccountRes {
   alias: string;
   img: string;
   network: string;
-}
-
-function actionToBotMsg(a: Action): BotMsg {
-  const data: BotMsg = {
-    action: a.action,
-    bot_id: a.bot_id,
-    bot_name: a.bot_name,
-    type: constants.message_types.bot_res,
-    uuid: a.msg_uuid || "",
-    message: {
-      content: a.content || "",
-      amount: a.amount || 0,
-    },
-    sender: {
-      pubkey: a.chat_uuid,
-      alias: a.bot_name || "",
-      role: constants.tribe_roles.reader,
-      route_hint: a.route_hint,
-    },
-  };
-  if (a.recipient_id) {
-    data.recipient_id = a.recipient_id;
-  }
-  if (a.reply_uuid) {
-    data.message.replyUuid = a.reply_uuid;
-  }
-  if (a.parent_id) {
-    data.message.parentId = a.parent_id;
-  }
-  return data;
 }

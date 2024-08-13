@@ -27,7 +27,7 @@
     "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.3",
     "sequelize-typescript": "^2.1.6",
-    "sphinx-bot": "0.3.2",
+    "sphinx-bot": "0.3.4",
     "sqlite3": "^5.1.7",
     "winston": "^3.13.0"
   }

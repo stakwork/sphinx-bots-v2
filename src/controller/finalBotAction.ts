@@ -21,7 +21,7 @@ function toPayload(a: Action): Payload {
   return {
     route: "send",
     body: {
-      dest: a.chat_uuid,
+      dest: a.chat_pubkey,
       amt_msat: a.amount || 3000, // FIXME?
       is_tribe: true,
       content: a.content,
@@ -43,7 +43,7 @@ export async function finalAction(a: Action): Promise<void> {
     await axios.post(config.bot_url + "/" + pld.route, pld.body, {
       headers: { "x-admin-token": config.bot_admin_token },
     });
-    logger.info("Action sent to Mixer successfully");
+    logger.info("Action sent to Mixer Bot successfully");
   } catch (error) {
     logger.error(`Error posting Action to Mixer: ${JSON.stringify(error)}`);
   }
