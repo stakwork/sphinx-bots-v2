@@ -8,8 +8,17 @@ import { models, BotRecord, ChatBotRecord } from "../../models";
 import axios from "axios";
 import { config } from "../../config";
 import { finalAction } from "../../controller/finalBotAction";
+import { createHash, timingSafeEqual } from "crypto";
 
 const route = Router();
+
+// constant-time compare; a bot with no secret on file never matches
+function secretMatches(stored: string | null | undefined, given: unknown) {
+  if (!stored || typeof given !== "string" || !given) return false;
+  const a = createHash("sha256").update(stored).digest();
+  const b = createHash("sha256").update(given).digest();
+  return timingSafeEqual(a, b);
+}
 
 export default (app: Router) => {
   app.use(route);
@@ -20,16 +29,15 @@ export default (app: Router) => {
       if (!action) {
         return failure(res, 404, "no action");
       }
-      // find bot by id and match secret???
+      // find bot by id and match secret
       if (!action.bot_id) return failure(res, 404, "no bot_id");
       const bot: BotRecord = (await models.Bot.findOne({
         where: { id: action.bot_id },
       })) as BotRecord;
       if (!bot) return failure(res, 404, "no bot");
-      if (action.bot_secret) {
-        if (!(bot.secret && bot.secret === action.bot_secret)) {
-          return failure(res, 401, "wrong secret");
-        }
+      if (!action.bot_secret) return failure(res, 401, "no secret");
+      if (!secretMatches(bot.secret, action.bot_secret)) {
+        return failure(res, 401, "wrong secret");
       }
       const chatBot: ChatBotRecord = (await models.ChatBot.findOne({
         where: { botId: action.bot_id, chatPubkey: action.chat_pubkey },
